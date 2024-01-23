@@ -1,0 +1,65 @@
+﻿@model List<User>;
+@{
+    ViewData["Title"] = "รายชื่อผู้ใช้งาน";
+}
+<h1 class="text-lg-center">รายชื่อผู้ใช้งาน</h1>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-inline" asp-controller="Home" asp-action="Index" method="get">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search by ID" aria-label="Search" name="idString" value="@ViewData["idString"]">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search by Department" aria-label="Search" name="departmentString" value="@ViewData["departmentString"]">
+                <button class="btn btn-outline-primary my-2 my-sm-2" type="submit">Search</button>
+
+            </form>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            @if (Model.Count > 0)
+            {
+                <table class="table table-responsive-sm">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>UserName</th>
+                            <th>Password</th>
+                            <th>Department</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>@user.ID</td>
+                                <td>@user.UserName</td>
+                                <td>@user.Pwd</td>
+                                <td>@user.Department</td>
+                                <td><a class="btn btn-warning" asp-controller="Home" asp-action="Edit" asp-route-id="@user.ID">Edit</a></td>
+                                <td><a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@user.ID" onclick="return confirm('Do you want to delete [ @user.UserName ]?')">Delete</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="alert alert-secondary">No Users</div>
+            }
+        </div>
+    </div>
+    <div>
+        <form class="form-inline" asp-controller="Home" asp-action="Index" method="get">
+            <a class="btn btn-outline-success" asp-controller="Home" asp-action="ExportToExcel">Export to Excel</a>
+        </form>
+           
+    </div>
+
+</div>
+
+
+
