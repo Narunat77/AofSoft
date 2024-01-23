@@ -74,7 +74,7 @@ namespace BPITest.Controllers
                 // ID ซ้ำ?
                 if (_db.AllUsers.Any(u => u.ID == obj.ID))
                 {
-                    ModelState.AddModelError("ID", "ID is already taken");
+                    ModelState.AddModelError("ID", "ID is already taken!!!!!");
                     return View(obj);
                 }
 
